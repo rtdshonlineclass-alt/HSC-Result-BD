@@ -1,4 +1,4 @@
-name: Build HSC Result BD APK
+name: Build HSC Result BD APKv2
 
 on:
   workflow_dispatch:
