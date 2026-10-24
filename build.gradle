@@ -3,6 +3,6 @@ plugins {
 } 
 android {
     compileSdk 35
-defaultconfig {targetSdk 35
-}grhome'runner/runner/work/HSC-Result-BD/HSC-Result-BD/build.gradle'
+defaultConfig{targetSdk 35
+}
 namespace 'com.example.hscresultbd' }
