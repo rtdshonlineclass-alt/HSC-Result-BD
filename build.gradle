@@ -3,4 +3,4 @@ plugins {
 } 
 android {
     compileSdk 34
-}
+}namespace 'com.example. hscresultbd'
