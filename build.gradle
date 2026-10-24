@@ -5,4 +5,4 @@ android {
     compileSdk 35
 defaultconfig {targetSdk 35
 }
-}namespace 'com.example.hscresultbd'
+namespace 'com.example.hscresultbd' }
