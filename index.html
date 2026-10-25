@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
   <title>HSC Result BD</title>
   <style>
     :root {
@@ -77,7 +82,7 @@
         <p class="subtitle">অফিসিয়াল শিক্ষা বোর্ড ফলাফল পোর্টাল</p>
         <button class="primary" onclick="showScreen('portal')">ফলাফল দেখুন (View Result)</button>
       </main>
-      <footer>এই অ্যাপটি বাংলাদেশ শিক্ষা বোর্ডের অফিসিয়াল ফলাফল পোর্টাল দেখানোর জন্য তৈরি। এটি কোনো সরকারি অ্যাপ নয় এবং ফলাফল ডেটা নিজে সংরক্ষণ করে না।</footer>
+      <footer>এই অ্যাপটি বাংলাদেশ শিক্ষা বোর্ডের অফিসিয়াল ফলাফল পোর্টাল দেখানোর জন্য তৈরি।</footer>
     </section>
 
     <section id="portal" class="screen">
@@ -87,12 +92,10 @@
         <button onclick="reloadPortal()" aria-label="রিলোড">↻</button>
       </div>
       <div class="portal-wrap">
-        <div class="notice">সরকারি পোর্টালটি নিচে লোড করার চেষ্টা করা হচ্ছে। সাইটটি যদি এই অ্যাপের ভেতরে না খোলে, নিচের বোতাম ব্যবহার করুন।</div>
-        <iframe id="portalFrame" title="Official Education Board Result Portal"
-          src="https://educationboardresults.gov.bd/v2/home"
-          referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div class="notice">সরকারি পোর্টালটি নিচে লোড করার চেষ্টা করা হচ্ছে। সাইটটি যদি এমবেডেড না খুলে, নিচের লিঙ্কে ক্লিক করুন।</div>
+        <iframe id="portalFrame" title="Official Education Board Result Portal" src="https://educationboardresults.gov.bd/v2/home" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         <div class="portal-fallback">
-          সরকারি সাইটটি এমবেডেড উইন্ডোতে না খুললে এটি সাইটের নিরাপত্তা নীতির কারণে হতে পারে।
+          সরকারি সাইটটি এমবেডেড উইন্ডোতে না খুললে এটি নিরাপত্তা নীতি বা কনটেন্ট ব্লকিং-এর কারণ হতে পারে।
           <br>
           <a href="https://educationboardresults.gov.bd/v2/home" target="_blank" rel="noopener noreferrer">সরকারি ওয়েবসাইট খুলুন</a>
         </div>
@@ -106,13 +109,14 @@
       </div>
       <div class="about-card">
         <h3>HSC Result BD v1.0</h3>
-        এই অ্যাপটি ব্যবহারকারীদের বাংলাদেশ শিক্ষা বোর্ডের অফিসিয়াল ফলাফল পোর্টালে সহজে যেতে সাহায্য করে।
+        এই অ্যাপটি ব্যবহারকারীদের বাংলাদেশ শিক্ষা বোর্ডের অফিসিয়াল ফলাফল পোর্টাল দেখাতে সহায়তা করে।
         <p><strong>গোপনীয়তা নীতি:</strong><br>
-        এই ওয়েব অ্যাপ নিজে কোনো সার্ভারে রোল বা রেজিস্ট্রেশন নম্বর পাঠায় বা সংরক্ষণ করে না। তথ্য সরকারি পোর্টালে দিলে সেটি সেই পোর্টালের নীতি অনুযায়ী প্রক্রিয়াকৃত হবে।</p>
-        <p>এটি একটি অনানুষ্ঠানিক অ্যাপ; বাংলাদেশ শিক্ষা বোর্ডের সঙ্গে এর কোনো আনুষ্ঠানিক সম্পর্ক নেই।</p>
+        এই ওয়েব অ্যাপ নিজে কোনো সার্ভারে রোল বা রেজিস্ট্রেশন নম্বর পাঠায় না। এটি কেবল নির্দেশিত সরকারি লিঙ্ক খোলা, সেটি প্রদর্শন ও ব্যবহারকারীর সুবিধার্থে ডিজাইন করা হয়েছে।</p>
+        <p>এটি একটি অনানুষ্ঠানিক অ্যাপ; বাংলাদেশ শিক্ষা বোর্ডের সঙ্গে এর কোনো সরকারি সম্পর্ক নেই।</p>
       </div>
     </section>
   </div>
+
   <script>
     const historyStack = ['home'];
     function showScreen(id) {
@@ -129,6 +133,14 @@
     function reloadPortal() {
       const frame = document.getElementById('portalFrame');
       frame.src = 'https://educationboardresults.gov.bd/v2/home';
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {
+          console.log('Service worker registration failed');
+        });
+      });
     }
   </script>
 </body>
